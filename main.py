@@ -5,18 +5,18 @@ from link_gen import link_gen
 
 
 bot = Client("fusi-render",
-             api_id=int(os.environ['API_ID']),
+             api_id=os.environ['API_ID'],
              api_hash=os.environ['API_HASH'],
              bot_token=os.environ['BOT_TOKEN'])
 
 
 @bot.on_message(filters.command('start'))
-async def echo(client, message):
+async def start_command(client, message):
     await message.reply('Alive')
 
 
 @bot.on_message(filters.text)
-def text_message(message):
+async def text_message(client, message):
     text = str(message.text)
     cid = message.chat.id
     urls = re.findall(r'(https?://\S+)', text)
@@ -48,11 +48,10 @@ def text_message(message):
         for uid in uids:
             resp_text = link_gen(uid)
             if resp_text is not None:
-                bot.send_message(cid, resp_text)
+                await bot.send_message(cid, resp_text)
             else:
-                bot.send_message(cid, 'Unhandled exception')
+                await bot.send_message(cid, 'Unhandled exception')
         uids.clear()
-
 
 print('BOT STARTED')
 bot.run()
