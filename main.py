@@ -1,6 +1,7 @@
 import os
 import re
 from pyrogram import Client, filters
+from keep_alive import keep_alive
 from link_gen import link_gen
 
 
@@ -53,5 +54,7 @@ async def text_message(client, message):
                 await bot.send_message(cid, 'Unhandled exception')
         uids.clear()
 
+
+keep_alive()
 print('BOT STARTED')
 bot.run()
