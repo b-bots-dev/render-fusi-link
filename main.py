@@ -54,7 +54,7 @@ async def text_message(client, message):
                 await bot.send_message(cid, 'Unhandled exception')
         uids.clear()
 
-
+#
 keep_alive()
 print('BOT STARTED')
 bot.run()
