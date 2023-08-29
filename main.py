@@ -54,7 +54,11 @@ async def text_message(client, message):
                 await bot.send_message(cid, 'Unhandled exception')
         uids.clear()
 
-#
+try:
+    bot.stop()
+except ConnectionError:
+    pass
+
 keep_alive()
 print('BOT STARTED')
 bot.run()
