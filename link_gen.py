@@ -28,28 +28,33 @@ def link_gen(uid):
                 if r['msg'] == 'successful':
                     name = r['roomBaseInfo']['nickname']
                     country = r['roomBaseInfo']['addr']
+                    followme = r['roomOtherInfo']['followme']
+                    myfollow = r['roomOtherInfo']['myfollow']
                     hls = r['pullFlowUrlHLS']
                     flv = r['pullFlowUrl']
+                    looksum = r['room']['lookSum']
 
                     try:
                         ticket = r['ticketRoomInfo']['tollProgressBarVo']['showTopic']
                     except KeyError:
                         ticket = None
 
-                    head = (f'ID : {uid}\n'
-                            f'NAME : {name}\n'
-                            f'COUNTRY : {country}\n')
+                    head = (f'🆔 ID : {uid}\n'
+                            f'👤 NAME : {name}\n'
+                            f'🌏 COUNTRY : {country}\n'
+                            f'👥 FANS : {followme}  |  FOLLOWED : {myfollow}')
 
                     if hls == '':
-                        links = 'Offline'
+                        links = '\n\nOffline / paused / lag'
                     else:
-                        links = (f'M3U8 : {hls}\n\n'
-                                 f'FLV : {flv}')
+                        links = (f'\n👀 VIEWS : {looksum}'
+                                 f'\n\n🔗 M3U8 : {hls}\n\n'
+                                 f'🔗 FLV : {flv}')
 
                     if ticket is None:
-                        text = f'{head}\n{links}'
+                        text = f'{head}{links}'
                     else:
-                        text = f'{head}PAID TICKET NAME : {ticket}\n\n{links}'
+                        text = f'{head}🎟 PAID TICKET NAME : {ticket}\n\n{links}'
 
                     return text
 
