@@ -54,7 +54,7 @@ def link_gen(uid):
                     if ticket is None:
                         text = f'{head}{links}'
                     else:
-                        text = f'{head}🎟 PAID TICKET NAME : {ticket}\n\n{links}'
+                        text = f'{head}\n🎟 PAID TICKET NAME : {ticket}{links}'
 
                     return text
 
